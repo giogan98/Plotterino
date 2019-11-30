@@ -45,6 +45,8 @@ public:
     //@todo add legenda and set graph names accordingly, to do so: plot->graph->setname
     //@todo make color change for multiple calls of the same function in the same wdg (hint:lighter)
     //@todo fix bug legend max height
+    //@todo make combobox choice better:
+    //m_ui->baudRateBox->addItem(QStringLiteral("9600"), QSerialPort::Baud9600);
 
 
 private:

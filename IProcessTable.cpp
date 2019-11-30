@@ -181,22 +181,22 @@ void IProcessTable::process0x125(std::string strPayload)
     //    TABLE to DLL  ; 07:55:24:443 ; <Id = CAN_ID_CLISIS_DBG_125 (0125) Len = 08 Data = 88 00 00 00 00 00 00 80 >
 
     //    *  BYTE 0 = low byte di Conf_Rx_bits
-    //    *  bit Preparation_bit     = Conf_Rx_bits^0    // stato del segnale del tasto  preparazione
-    //    *  bit Fluoro_bit          = Conf_Rx_bits^1    // stato del segnale del tasto  fluoro
-    //    *  bit Exposure_bit        = Conf_Rx_bits^2    // stato del segnale del tasto  esposizione
+    //    *  bit Preparation_bit     = Conf_Rx_bits^0    // IN stato del segnale del tasto  preparazione
+    //    *  bit Fluoro_bit          = Conf_Rx_bits^1    // IN stato del segnale del tasto  fluoro
+    //    *  bit Exposure_bit        = Conf_Rx_bits^2    // IN stato del segnale del tasto  esposizione
     //    *  bit Debug_toggle_bit    = Conf_Rx_bits^3    // toggling bit per indicare tx  attiva
-    //    *  bit FLUORO_bit          = Conf_Rx_bits^4    // fluoroscopia (fluoro HW)
-    //    *  bit PREPARATION_bit     = Conf_Rx_bits^5    // preparazione (preparazione HW)
-    //    *  bit EXPOSURE_bit        = Conf_Rx_bits^6    // esposizione rx (rx HW)
-    //    *  bit SEC_STEP_bit        = Conf_Rx_bits^7    // grafia (enable HW)
+    //    *  bit FLUORO_bit          = Conf_Rx_bits^4    // OUT fluoroscopia (fluoro HW)
+    //    *  bit PREPARATION_bit     = Conf_Rx_bits^5    // OUT preparazione (preparazione HW)
+    //    *  bit EXPOSURE_bit        = Conf_Rx_bits^6    // OUT esposizione rx (rx HW)
+    //    *  bit SEC_STEP_bit        = Conf_Rx_bits^7    // OUT grafia (enable HW)
     //    *
     //    *  BYTE 1 = high byte di Conf_Rx_bits
     //    *
-    //    *  bit Gen_Req_bit         = Conf_Rx_bits^8    // stato del segnale in ingresso  del generator request
-    //    *  bit Gen_Xray_on_bit     = Conf_Rx_bits^9    // stato del segnale in ingresso  di xray on da generatore
-    //    *  bit Preparation_bit_ext = Conf_Rx_bits^10   // stato del segnale di  preparazione ext
-    //    *  bit Fluoro_bit_ext      = Conf_Rx_bits^11   // stato del segnale di fluoro  ext
-    //    *  bit Exposure_bit_ext    = Conf_Rx_bits^12   // stato del segnale di  esposizione ext
+    //    *  bit Gen_Req_bit         = Conf_Rx_bits^8    // IN  stato del segnale in ingresso  del generator request
+    //    *  bit Gen_Xray_on_bit     = Conf_Rx_bits^9    // IN stato del segnale in ingresso  di xray on da generatore
+    //    *  bit Preparation_bit_ext = Conf_Rx_bits^10   // IN stato del segnale di  preparazione ext
+    //    *  bit Fluoro_bit_ext      = Conf_Rx_bits^11   // IN stato del segnale di fluoro  ext
+    //    *  bit Exposure_bit_ext    = Conf_Rx_bits^12   // IN stato del segnale di  esposizione ext
     //    *  bit Debug_error_bit     = Conf_Rx_bits^13   // errori di debug presenti
     //    *  bit Status_CPU_bit      = Conf_Rx_bits^14   // stato attuale del programma
     //    *  bit Dbg_bit_ext         = Conf_Rx_bits^15   // free
@@ -218,25 +218,24 @@ void IProcessTable::process0x125(std::string strPayload)
 
     lBitMask  = laData[0];
     lBitMask += (laData[1]<<8);
-    //@todo fix problem with bitmask, names repeat themselves
-    appendRecordField("PreparationBit"     , lBitMask&(1<<0 ));
-    appendRecordField("FluoroBit"          , lBitMask&(1<<1 ));
-    appendRecordField("ExposureBit"        , lBitMask&(1<<2 ));
-    appendRecordField("Debug_toggleBit"    , lBitMask&(1<<3 ));
-    appendRecordField("FLUOROBit"          , lBitMask&(1<<4 ));
-    appendRecordField("PREPARATIONBit"     , lBitMask&(1<<5 ));
-    appendRecordField("EXPOSUREBit"        , lBitMask&(1<<6 ));
-    appendRecordField("SEC_STEPBit"        , lBitMask&(1<<7 ));
 
-    appendRecordField("Gen_ReqBit"         , lBitMask&(1<<8 ));
-    appendRecordField("Gen_Xray_onBit"     , lBitMask&(1<<9 ));
-    appendRecordField("PreparationExtBit"  , lBitMask&(1<<10));
-    appendRecordField("FluoroExtBit"       , lBitMask&(1<<11));
-    appendRecordField("ExposurExtBit"      , lBitMask&(1<<12));
-    appendRecordField("Debug_errorBit"     , lBitMask&(1<<13));
-    appendRecordField("Status_CPUBit"      , lBitMask&(1<<14));
-    appendRecordField("DbgBit"             , lBitMask&(1<<15));
+    appendRecordField("PreparationBit"     , (lBitMask&(1<< 0 ))>0);
+    appendRecordField("FluoroBit"          , (lBitMask&(1<< 1 ))>0);
+    appendRecordField("ExposureBit"        , (lBitMask&(1<< 2 ))>0);
+    appendRecordField("Debug_toggleBit"    , (lBitMask&(1<< 3 ))>0);
+    appendRecordField("FLUOROBit"          , (lBitMask&(1<< 4 ))>0);
+    appendRecordField("PREPARATIONBit"     , (lBitMask&(1<< 5 ))>0);
+    appendRecordField("EXPOSUREBit"        , (lBitMask&(1<< 6 ))>0);
+    appendRecordField("SEC_STEPBit"        , (lBitMask&(1<< 7 ))>0);
 
+    appendRecordField("Gen_ReqBit"         , (lBitMask&(1<< 8 ))>0);
+    appendRecordField("Gen_Xray_onBit"     , (lBitMask&(1<< 9 ))>0);
+    appendRecordField("PreparationExtBit"  , (lBitMask&(1<<10 ))>0);
+    appendRecordField("FluoroExtBit"       , (lBitMask&(1<<11 ))>0);
+    appendRecordField("ExposurExtBit"      , (lBitMask&(1<<12 ))>0);
+    appendRecordField("Debug_errorBit"     , (lBitMask&(1<<13 ))>0);
+    appendRecordField("Status_CPUBit"      , (lBitMask&(1<<14 ))>0);
+    appendRecordField("DbgBit"             , (lBitMask&(1<<15 ))>0);
 }
 //--------------------------------------------------------
 void IProcessTable::unpackBit8(std::string * pstrOut, uint8_t u8Val)
