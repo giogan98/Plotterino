@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "qcustombars.h"
-#include "IScanLogDatabase.h"
-#include "getcomplsuggestions.h"
+#include "Graphs/qcustombars.h"
+#include "DBmanaging/IScanLogDatabase.h"
+#include "Completion/getcomplsuggestions.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

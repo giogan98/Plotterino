@@ -1,7 +1,7 @@
 #ifndef IPROCESSGEN_H
 #define IPROCESSGEN_H
 #include <string>
-#include "IProcessBase.h"
+#include "Processing/IProcessBase.h"
 
 
 class IGenRecord

@@ -1,6 +1,6 @@
 #include "IScanLogDatabase.h"
-#include "IProcessMC.h"
-#include "IProcessGen.h"
+#include "Processing/IProcessMC.h"
+#include "Processing/IProcessGen.h"
 #include <QVariant>
 #include <QDebug>
 #include <QtSql/QSqlQuery>

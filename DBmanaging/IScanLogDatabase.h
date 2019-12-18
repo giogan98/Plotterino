@@ -4,7 +4,7 @@
 #include <QtSql/QSqlQuery>
 #include <QString>
 #include <QVariant>
-#include "IProcessBase.h"
+#include "Processing/IProcessBase.h"
 
 class IScanLogRecord
 {

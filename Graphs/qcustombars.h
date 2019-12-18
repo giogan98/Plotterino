@@ -1,6 +1,6 @@
 #ifndef QCUSTOMBARS_H
 #define QCUSTOMBARS_H
-#include "qcustomplot.h"
+#include "Graphs/qcustomplot.h"
 #include <QWidget>
 
 

@@ -1,7 +1,7 @@
-#include "IProcessTable.h"
+#include "Processing/IProcessTable.h"
 #include <QDebug>
 #include <fstream>
-#include "IScanLogDatabase.h"
+#include "DBmanaging/IScanLogDatabase.h"
 #include <QString>
 
 

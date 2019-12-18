@@ -1,7 +1,7 @@
 #ifndef PROCESSLOG_H
 #define PROCESSLOG_H
 #include <string>
-#include "IProcessBase.h"
+#include "Processing/IProcessBase.h"
 class IProcessLog: private IProcessBase
 {
 public:

@@ -1,15 +1,15 @@
-#ifndef IPROCESSMC_H
-#define IPROCESSMC_H
+#ifndef IPROCESSTABLE_H
+#define IPROCESSTABLE_H
 #include <string>
-#include "IProcessBase.h"
+#include "Processing/IProcessBase.h"
 
-class IMcIoRecord
+class ITableIoRecord
 {
 	public:
 	std::string strTime; /// text with Time [ms] from midnight
 	std::string strTag; /// Type to be displayed
 	std::string strPayload; /// text with useful content
-	IMcIoRecord(){clear();}
+	ITableIoRecord(){clear();}
 	void clear(void){
 		strTime		 .clear();
 		strTag		 .clear();
@@ -17,7 +17,7 @@ class IMcIoRecord
 	}
 };
 
-class IMcCommRecord
+class ITableCommRecord
 {
 	public:
 
@@ -26,7 +26,7 @@ class IMcCommRecord
 	std::string strField; /// string name of Id
 	std::string strHex; /// Hex value - paload
 	int32_t s32Value; /// converted decimal value
-	IMcCommRecord(){clear();}
+	ITableCommRecord(){clear();}
 	void clear(void){
 		//		strCmd		 .clear();
 		strId		 .clear();
@@ -36,7 +36,7 @@ class IMcCommRecord
 	}
 };
 
-class IProcessMC: private IProcessBase
+class IProcessTable: private IProcessBase
 {
 	public:
 	enum{
@@ -50,12 +50,12 @@ class IProcessMC: private IProcessBase
 	private:
 	ITableData structTable;
 	public:
-	IProcessMC();
+	IProcessTable();
 	void initTable(void) override;
 	void process(std::string strPayload);
-	void process0x650(std::string strPayload);
-	void process0x651(std::string strPayload);
-	void process0x652(std::string strPayload);
+	void process0x120(std::string strPayload);
+    void process0x125(std::string strPayload);
+	void process0x403(std::string strPayload);
 	private:
 	void unpackBit8(std::string * pstrOut, uint8_t u8Val);
 	void unpackBit32(std::string * pstrOut, uint32_t uiVal);
@@ -63,6 +63,8 @@ class IProcessMC: private IProcessBase
 						uint32_t lBitMask,
 						uint32_t lMcStatus);
 
+    void appendRecordField(std::string str_nameField, unsigned long ulIndex);
 };
-extern IProcessMC iProcessMC;
-#endif // IPROCESSMC_H
+extern IProcessTable iProcessTable;
+
+#endif // IPROCESSTABLE_H

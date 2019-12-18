@@ -1,10 +1,10 @@
-#include "IProcessLog.h"
+#include "Processing/IProcessLog.h"
 #include <QDebug>
 #include <fstream>
-#include "IScanLogDatabase.h"
-#include "IProcessMC.h"
-#include "IProcessGen.h"
-#include "IProcessTable.h"
+#include "DBmanaging/IScanLogDatabase.h"
+#include "Processing/IProcessMC.h"
+#include "Processing/IProcessGen.h"
+#include "Processing/IProcessTable.h"
 #include <QString>
 
 

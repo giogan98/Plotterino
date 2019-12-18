@@ -1,11 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "qcustomplot.h"
-#include "qcustombars.h"
-#include "IScanLogDatabase.h"
-#include "IProcessGen.h"
-#include "IProcessMC.h"
-#include "IProcessLog.h"
+#include "Graphs/qcustomplot.h"
+#include "Graphs/qcustombars.h"
+#include "DBmanaging/IScanLogDatabase.h"
+#include "Processing/IProcessGen.h"
+#include "Processing/IProcessMC.h"
+#include "Processing/IProcessLog.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     textItem = new QCPItemText(ui->wdg_graph1);
     connect(ui->wdg_graph1, &QCustomPlot::mouseMove, this, &MainWindow::onMouseMove);
     QString str_stylesheet,str_stylefile;
-    str_stylefile="C:/Users/giorg/Documents/Doc_tirocinio/Aqua.qss";
+    str_stylefile="C:/Users/giorg/Documents/Doc_tirocinio/QSS-master/Aqua.qss";
     QFile file(str_stylefile);
 
     if (!file.open(QFile::ReadOnly | QFile::Text)){
@@ -26,8 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
     QTextStream in(&file);
     str_stylesheet=in.readAll();
     setStyleSheet(str_stylesheet);
-
-
 }
 //---------------------------------------------------------------------------------
 MainWindow::~MainWindow()

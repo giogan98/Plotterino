@@ -17,31 +17,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Completion/getcomplsuggestions.cpp \
+    DBmanaging/IScanLogDatabase.cpp \
     Driver/ILog.cpp \
-    IProcessBase.cpp \
-    IProcessGen.cpp \
-    IProcessLog.cpp \
-    IProcessMC.cpp \
-    IProcessTable.cpp \
-    IScanLogDatabase.cpp \
-    getcomplsuggestions.cpp \
+    Graphs/qcustombars.cpp \
+    Graphs/qcustomplot.cpp \
+    Processing/IProcessBase.cpp \
+    Processing/IProcessGen.cpp \
+    Processing/IProcessLog.cpp \
+    Processing/IProcessMC.cpp \
+    Processing/IProcessTable.cpp \
     main.cpp \
-    mainwindow.cpp \
-    qcustombars.cpp \
-    qcustomplot.cpp
+    mainwindow.cpp
 
 HEADERS += \
+    Completion/getcomplsuggestions.h \
+    DBmanaging/IScanLogDatabase.h \
     Driver/ILog.h \
-    IProcessBase.h \
-    IProcessGen.h \
-    IProcessLog.h \
-    IProcessMC.h \
-    IProcessTable.h \
-    IScanLogDatabase.h \
-    getcomplsuggestions.h \
-    mainwindow.h \
-    qcustombars.h \
-    qcustomplot.h
+    Graphs/qcustombars.h \
+    Graphs/qcustomplot.h \
+    Processing/IProcessBase.h \
+    Processing/IProcessGen.h \
+    Processing/IProcessLog.h \
+    Processing/IProcessMC.h \
+    Processing/IProcessTable.h \
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui

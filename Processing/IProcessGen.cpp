@@ -1,5 +1,5 @@
-#include "IProcessGen.h"
-#include "IScanLogDatabase.h"
+#include "Processing/IProcessGen.h"
+#include "DBmanaging/IScanLogDatabase.h"
 #include <QDebug>
 #include <cstdlib>
 IProcessGen iProcessGen;
