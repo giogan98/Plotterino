@@ -7,7 +7,7 @@
 #include "Processing/IProcessMC.h"
 #include "Processing/IProcessLog.h"
 
-
+//---------------------------------------------------------------------------------
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -59,7 +59,6 @@ void MainWindow::onMouseMove(QMouseEvent *event)
     textItem->setFont(QFont(font().family(), 8));
     customPlot->replot();
 }
-
 //---------------------------------------------------------------------------------
 void MainWindow::on_pbn_database_clicked()
 {
@@ -153,7 +152,6 @@ void MainWindow::on_pbn_plot_clicked()
     else if (str_graphType == "Other_bars"){
         //@todo
     }
-
 }
 //---------------------------------------------------------------------------------
 void MainWindow::on_pbn_createDb_clicked()
@@ -191,8 +189,6 @@ void MainWindow::on_pbn_createDb_clicked()
     }
 }
 //---------------------------------------------------------------------------------
-
-
 void MainWindow::on_pbn_clear_clicked()
 {
     ui->lined_field->clear();
@@ -208,5 +204,6 @@ void MainWindow::on_pbn_clear_clicked()
 
     ui->wdg_graph1->replot();
     ui->wdg_graph2->replot();
-
 }
+//---------------------------------------------------------------------------------
+

@@ -172,7 +172,6 @@ void QCustomBars::barsXTime(QVector<QTime> vec_time)
     plot->replot();
 
 }
-
 //---------------------------------------------------------------------------------
 /**
  * @brief QCustomBars::barsXTimeV2
@@ -237,8 +236,6 @@ void QCustomBars::barsXTimeV2(QVector<double> vec_timeMs)
     plot->xAxis->setTicker(textTicker);
     plot->yAxis->setLabel("N° of occurrences");
 
-
-
     // Add data:
 
     for ( int ii = 0; ii<iNumBin; ii++){
@@ -250,9 +247,7 @@ void QCustomBars::barsXTimeV2(QVector<double> vec_timeMs)
     plot->replot();
 
 }
-
 //---------------------------------------------------------------------------------
-
 /**
  * @brief QCustomBars::barsXTimeV3
  * @brief Plots bars based on the number of occurences
@@ -312,7 +307,6 @@ void QCustomBars::barsXTimeV3(enumChoiceBar choice, int iNumBin, QVector<double>
     plot->rescaleAxes(true);
     plot->show();
     plot->replot();
-
 }
 //---------------------------------------------------------------------------------
 /**
@@ -407,7 +401,6 @@ void QCustomBars::barsXTimeV4(int iNumBin, QVector<double> vec_douberrors, QVect
     plot->rescaleAxes(true);
     plot->show();
     plot->replot();
-
 }
 //---------------------------------------------------------------------------------
 /**
@@ -453,7 +446,6 @@ void QCustomBars::barsGraph(enumChoiceBar choice, int iNumBin, QVector<double> v
         qDebug()<<"[!]ERROR: you've added an element to enumChoice and not implemented it correctly ";
         break;
     }
-
     makeConfrontRanges(choice,iNumBin);
     //    inizializeColumns(iNumBin);
     //    addBarsElements(vec_doubs,iNumBin);
@@ -525,7 +517,6 @@ void QCustomBars::barsGraph(enumChoiceBar choice, int iNumBin, QVector<double> v
     bars_on_top->setBrush(QColor(0, 0, 255));
     bars->setBrush(QColor(255,0,0));
 
-
     plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom );
     plot->rescaleAxes(true);
     plot->show();
@@ -568,7 +559,6 @@ void QCustomBars::graphCustom00(QCustomPlot *cplot, QVector<double> vec_timeMs, 
     cplot->graph(0)->setLineStyle(QCPGraph::lsNone);
     cplot->graph(1)->setLineStyle(QCPGraph::lsNone);
 
-
     QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);
     dateTicker->setDateTimeSpec(Qt::UTC);
     dateTicker->setDateTimeFormat("hh:\nmm:ss\nzzz");
@@ -579,8 +569,6 @@ void QCustomBars::graphCustom00(QCustomPlot *cplot, QVector<double> vec_timeMs, 
     cplot->yAxis->setLabel("y");
     cplot->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
     cplot->graph(1)->setScatterStyle(QCPScatterStyle::ssCircle);
-
-
 
     cplot->rescaleAxes(true);
     cplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
@@ -687,7 +675,6 @@ void QCustomBars::graphLines(QCustomPlot *cplot, QPen penColor, QVector<double> 
     plot->setInteraction(QCP::iSelectPlottables, true);
     plot->replot();
 }
-
 //---------------------------------------------------------------------------------
 /**
  * @brief QCustomBars::setStyle
@@ -742,7 +729,6 @@ void QCustomBars::yDispersion(QCustomPlot *cplot, QVector<QVector<double> > vec_
     cplot->replot();
 
 }
-
 //---------------------------------------------------------------------------------
 /**
  * @brief QCustomBars::giveMeUi
@@ -753,7 +739,6 @@ void QCustomBars::giveMeUi(QCustomPlot *cplot)
 {
     plot = cplot;
 }
-
 //---------------------------------------------------------------------------------
 /**
  * @brief QCustomBars::inizializeColumns
@@ -813,7 +798,6 @@ void QCustomBars::makeConfrontRanges(enumChoiceBar choice,int iNumBin)
         ranges.append(d_doub);
     }
 }
-
 //---------------------------------------------------------------------------------
 /**
  * @brief QCustomBars::findMax
@@ -889,7 +873,6 @@ void QCustomBars::styleAxes()
     plot->yAxis->setLabelColor(Qt::white);
     plot->yAxis->grid()->setPen(QPen(QColor(130, 130, 130), 0, Qt::SolidLine));
     plot->yAxis->grid()->setSubGridPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
-
 }
 //---------------------------------------------------------------------------------
 /**
@@ -918,7 +901,7 @@ QVector<QString> QCustomBars::getLabels(enumChoiceBar choice,int iNumBin)
     QVector<QString>labels;
     for (int ii=0; ii<=iNumBin; ii++)
     {
-        double d_numb = (double)ii*(max)/iNumBin;
+        double d_numb = static_cast<double>(ii)*(max)/iNumBin;
         QString str_converter = QString::number(d_numb,10,2);
         vec_strTemp.append(str_converter);
     }
