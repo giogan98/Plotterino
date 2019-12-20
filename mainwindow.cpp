@@ -101,7 +101,7 @@ void MainWindow::on_pbn_plot_clicked()
             vec_doubVals.append(vec_tempValue[ii].toDouble());
         }
         for (int ii = 0; ii < vec_doubMs.length(); ii++){
-            if ((int)vec_doubVals[ii]%100==0){
+            if (static_cast<int>(vec_doubVals[ii])%100==0){
                 vec_doubMsEr.append(vec_doubMs[ii]);
                 vec_doubValsEr.append(vec_doubVals[ii]);
             }else{
@@ -126,7 +126,7 @@ void MainWindow::on_pbn_plot_clicked()
             vec_doubVals.append(vec_tempValue[ii].toDouble());
         }
         for (int ii = 0; ii < vec_doubMs.length(); ii++){
-            if ((int)vec_doubVals[ii]%100==0){
+            if (static_cast<int>(vec_doubVals[ii])%100==0){
                 vec_doubMsEr.append(vec_doubMs[ii]);
                 //vec_doubValsEr.append(vec_doubVals[ii]);
             }else{
@@ -179,7 +179,7 @@ void MainWindow::on_pbn_createDb_clicked()
             iProcessLog.processLogLine(strLineLog);
             lProcessed += strLineLog.length();
             if ( lProcessed*100>(ui->progressBar->value()+9)*lFileSize){
-                ui->progressBar->setValue((lProcessed*100)/lFileSize);
+                ui->progressBar->setValue(static_cast<int>(lProcessed*100)/lFileSize);
             }
         }
 
