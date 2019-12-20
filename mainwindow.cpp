@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     textItem = new QCPItemText(ui->wdg_graph1);
     connect(ui->wdg_graph1, &QCustomPlot::mouseMove, this, &MainWindow::onMouseMove);
     QString str_stylesheet,str_stylefile;
-    str_stylefile="C:/Users/giorg/Documents/Doc_tirocinio/QSS-master/Aqua.qss";
+    str_stylefile="C:/Users/giorg/Documents/Qt_documenti/DBGraphsV1/Stylesheet/Aqua.qss";
     QFile file(str_stylefile);
 
     if (!file.open(QFile::ReadOnly | QFile::Text)){
