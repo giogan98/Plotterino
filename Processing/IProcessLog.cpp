@@ -9,8 +9,7 @@
 
 
 IProcessLog iProcessLog;
-
-
+//------------------------------------------------------------------------------
 IProcessLog::IProcessLog()
 {
 
@@ -88,7 +87,6 @@ void IProcessLog::processLogLine(std::string strLine)
     }
 }
 //------------------------------------------------------------------------
-
 void IProcessLog::processFile (const char * ucaNameFileIn,
                                const char * ucaNameFileOut)
 {
@@ -111,3 +109,4 @@ void IProcessLog::processFile (const char * ucaNameFileIn,
         getline(infile,strLineLog); // Saves the line in STRING.
     }
 }
+//------------------------------------------------------------------------------

@@ -34,7 +34,6 @@ bool IScanLogDatabase::createOpenDatabase(std::string strPath )
     iProcessMC.initTable(); //basta una, tabella è la stessas
     return bSuccesfull;
 }
-
 //-----------------------------------------------------------------------------
 /**
  * @brief IScanLogDatabase::createTable
@@ -262,8 +261,6 @@ QVector<QVariant> IScanLogDatabase::getFiltered(std::string strColumnName, std::
         qDebug()<<db.lastError();
     }
     return vec_values; //you can convert qvariant into double, string etc if necessary
-
-
 }
 //-----------------------------------------------------------------------------
 /**
@@ -282,5 +279,4 @@ void IScanLogDatabase::closeDb(void)
 {
     // db.close();
 }
-
-
+//------------------------------------------------------------------------------

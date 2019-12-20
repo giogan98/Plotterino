@@ -24,7 +24,7 @@ ILog::ILog()
 {
     file = new QFile;
 }
-
+//------------------------------------------------------------------------------
 void ILog::init(void)
 {
     QString str2("log/TsLog_");
@@ -82,7 +82,7 @@ void ILog::append(QString strTxt)
         close();
     }
 }
-
+//------------------------------------------------------------------------------
 void ILog::append(char * u8aStr, unsigned long ulSz)
 {
     char u8aMsg256[256] = {0,};
@@ -95,8 +95,7 @@ void ILog::append(char * u8aStr, unsigned long ulSz)
     QString str2(u8aStr);
     append(str2);
 }
-
-
+//------------------------------------------------------------------------------
 void ILog::open(void)
 {
     file->open(QIODevice::Append);
@@ -105,5 +104,4 @@ void ILog::close(void)
 {
     file->close();
 }
-
-
+//------------------------------------------------------------------------------
