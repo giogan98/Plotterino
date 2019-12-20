@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "Completion/getcomplsuggestions.h"
 #include "Graphs/qcustomplot.h"
 #include "Graphs/qcustombars.h"
 #include "DBmanaging/IScanLogDatabase.h"
@@ -70,12 +71,12 @@ void MainWindow::on_pbn_graphs_clicked()
     ui->stackedWidget->setCurrentIndex(1);
     QStringList strl_suggestions;
     QVector<QVariant> qv_varSugg;
-    qv_varSugg = scanlogdatabase.getFiltered("DISTINCT Field","TableTest","%","%");
+    qv_varSugg = iScanLogDatabase.getFiltered("DISTINCT Field","TableTest","%","%");
     for ( int ii = 0; ii < qv_varSugg.length(); ii++){
         strl_suggestions.append(qv_varSugg[ii].toString());
     }
-    getsuggestions.setStrList(strl_suggestions);
-    getsuggestions.getCompleted(ui->lined_field);
+    getSuggestions.setStrList(strl_suggestions);
+    getSuggestions.getCompleted(ui->lined_field);
 }
 //---------------------------------------------------------------------------------
 void MainWindow::on_pbn_plot_clicked()
@@ -91,8 +92,8 @@ void MainWindow::on_pbn_plot_clicked()
 
     if (str_graphType == "Scatter"){
         std::string str_field = ui->lined_field->text().toStdString();
-        QVector<QVariant> vec_tempMs = scanlogdatabase.getFiltered("Time_ms","TableTest","%",str_field);
-        QVector<QVariant> vec_tempValue = scanlogdatabase.getFiltered("Value","TableTest","%",str_field);
+        QVector<QVariant> vec_tempMs = iScanLogDatabase.getFiltered("Time_ms","TableTest","%",str_field);
+        QVector<QVariant> vec_tempValue = iScanLogDatabase.getFiltered("Value","TableTest","%",str_field);
 
         QVector<double> vec_doubMs,vec_doubVals;
         QVector<double> vec_doubValsOk, vec_doubMsOk,vec_doubValsEr, vec_doubMsEr;
@@ -109,15 +110,14 @@ void MainWindow::on_pbn_plot_clicked()
                 vec_doubValsOk.append(vec_doubVals[ii]);
             }
         }
-        custombars.giveMeUi(cplot);
-        custombars.scatterGraph(vec_doubMsEr,vec_doubValsEr,QPen(Qt::red), custombars.EN_LSNONE);
-        custombars.scatterGraph(vec_doubMsOk,vec_doubValsOk,QPen(Qt::blue), custombars.EN_LSNONE);
-
+        cbars.giveMeUi(cplot);
+        cbars.scatterGraph(vec_doubMsEr,vec_doubValsEr,QPen(Qt::red), cbars.EN_LSNONE);
+        cbars.scatterGraph(vec_doubMsOk,vec_doubValsOk,QPen(Qt::blue), cbars.EN_LSNONE);
     }
     else if (str_graphType == "Bars_Stacked"){
         std::string str_field = ui->lined_field->text().toStdString();
-        QVector<QVariant> vec_tempMs = scanlogdatabase.getFiltered("Time_ms","TableTest","%",str_field);
-        QVector<QVariant> vec_tempValue = scanlogdatabase.getFiltered("Value","TableTest","%",str_field);
+        QVector<QVariant> vec_tempMs = iScanLogDatabase.getFiltered("Time_ms","TableTest","%",str_field);
+        QVector<QVariant> vec_tempValue = iScanLogDatabase.getFiltered("Value","TableTest","%",str_field);
 
         QVector<double> vec_doubMs,vec_doubVals;
         QVector<double> vec_doubMsEr, vec_doubMsOk;
@@ -133,21 +133,21 @@ void MainWindow::on_pbn_plot_clicked()
                 vec_doubMsOk.append(vec_doubMs[ii]);
             }
         }
-        custombars.giveMeUi(cplot);
-        custombars.barsGraph(QCustomBars::BARS_PLUSTOT,24,vec_doubMsOk,vec_doubMsEr);
+        cbars.giveMeUi(cplot);
+        cbars.barsGraph(QCustomBars::BARS_PLUSTOT,24,vec_doubMsOk,vec_doubMsEr);
     }
     else if ( str_graphType == "Lines"){
         std::string str_field = ui->lined_field->text().toStdString();
-        QVector<QVariant> vec_tempMs = scanlogdatabase.getFiltered("Time_ms","TableTest","%",str_field);
-        QVector<QVariant> vec_tempValue = scanlogdatabase.getFiltered("Value","TableTest","%",str_field);
+        QVector<QVariant> vec_tempMs = iScanLogDatabase.getFiltered("Time_ms","TableTest","%",str_field);
+        QVector<QVariant> vec_tempValue = iScanLogDatabase.getFiltered("Value","TableTest","%",str_field);
 
         QVector<double> vec_doubMs,vec_doubVals;
         for (int ii = 0; ii < vec_tempMs.length(); ii++){
             vec_doubMs.append(vec_tempMs[ii].toDouble());
             vec_doubVals.append(vec_tempValue[ii].toDouble());
         }
-        custombars.giveMeUi(cplot);
-        custombars.scatterGraph(vec_doubMs,vec_doubVals,QPen(Qt::green), custombars.EN_LSLINE);
+        cbars.giveMeUi(cplot);
+        cbars.scatterGraph(vec_doubMs,vec_doubVals,QPen(Qt::green), cbars.EN_LSLINE);
     }
     else if (str_graphType == "Other_bars"){
         //@todo

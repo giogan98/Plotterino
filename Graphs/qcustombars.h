@@ -19,13 +19,15 @@ public:
     }enLineStyle;
 
 private:
+    QCustomPlot *plot;
     QVector<double> ranges;
     QVector<double> columns;
-    double max, min, range = 0, dBin;
     QList<QCPBars*> listBars;
-    QCustomPlot *plot;
+    double max, min, range, dBin;
 
 public:
+    QCustomBars();
+    ~QCustomBars();
     void setStyle(int iStyleNumber);
     void giveMeUi (QCustomPlot *cplot);
     void barsXTime  (QVector<QTime> vec_time);
@@ -41,8 +43,6 @@ public:
                        enLineStyle lineStyle = EN_LSNONE);
 
 private:
-    QCustomBars();
-    ~QCustomBars();
     void styleAxes ();
     void setBackgroundGradient();
     void inizializeColumns(int iNumBin);
@@ -64,5 +64,5 @@ private:
     //@todo make combobox choice better:
     //m_ui->baudRateBox->addItem(QStringLiteral("9600"), QSerialPort::Baud9600);
 };
-
+extern QCustomBars qCustomBars;
 #endif // QCUSTOMBARS_H
