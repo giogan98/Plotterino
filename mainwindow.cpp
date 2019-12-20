@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setMinimumSize(800,600);
     textItem = new QCPItemText(ui->wdg_graph1);
     connect(ui->wdg_graph1, &QCustomPlot::mouseMove, this, &MainWindow::onMouseMove);
     QString str_stylesheet,str_stylefile;
