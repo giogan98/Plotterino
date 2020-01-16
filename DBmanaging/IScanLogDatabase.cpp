@@ -23,10 +23,10 @@ IScanLogDatabase::IScanLogDatabase()
  * @param strPath string to path of DataBase
  * @return TRUE if succesfully operation
  */
-bool IScanLogDatabase::createOpenDatabase(std::string strPath )
+bool IScanLogDatabase::createOpenDatabase( std::string strPath )
 {
     bool bSuccesfull = false;
-    if ( strPath != "")
+    if ( strPath != "" )
     {
         strDatabasePath.clear();
         strDatabasePath.append(QString::fromStdString(strPath));
@@ -44,7 +44,7 @@ bool IScanLogDatabase::createOpenDatabase(std::string strPath )
  * @param structTable
  * @return
  */
-bool IScanLogDatabase::createTable(ITableData structTable)
+bool IScanLogDatabase::createTable( ITableData structTable )
 {
     db = QSqlDatabase::database();
     bool bSuccesfull = db.open();
@@ -54,6 +54,7 @@ bool IScanLogDatabase::createTable(ITableData structTable)
                            " WHERE type='table' AND name='";
         strQuery.append(structTable.getTableName().data());
         strQuery.append("';");
+
         QSqlQuery query;
         bSuccesfull = query.exec(strQuery);
 
@@ -63,15 +64,15 @@ bool IScanLogDatabase::createTable(ITableData structTable)
         if ( query.size() <= 0 )
         {
             QString strqryTbl = "create table ";
-            strqryTbl.append(structTable.getTableName().data());
-            strqryTbl.append(" (");
+            strqryTbl.append( structTable.getTableName().data() );
+            strqryTbl.append( " (" );
             std::string strFields;
             strFields.clear();
             for( uint8_t ii=0; ii<structTable.getNumEl(); ii++ )
             {
-                strFields.append(structTable.getField(ii));
-                strFields.append(" ");
-                strFields.append(structTable.getType(ii));
+                strFields.append( structTable.getField(ii) );
+                strFields.append( " " );
+                strFields.append( structTable.getType(ii) );
                 if( ii < structTable.getNumEl()-1 )
                 {
                     strFields.append(",");
@@ -79,7 +80,7 @@ bool IScanLogDatabase::createTable(ITableData structTable)
             }
             strqryTbl.append( strFields.data() );
             strqryTbl.append( ")" );
-            bool bSuccesfull2 = query.exec(strqryTbl);
+            bool bSuccesfull2 = query.exec( strqryTbl );
             // db.close();
             if( !bSuccesfull2 )
             {
@@ -186,15 +187,15 @@ bool IScanLogDatabase::write(std::string strQuery)
 bool IScanLogDatabase::vecStrAppend(std::vector<std::string> vecQuery)
 {
     bool bSuccesfull = false;
-    QString str_vals="";
+    QString str_vals= "";
 
-    if (vecQuery.size()>0)
+    if ( vecQuery.size()>0 )
     {
-        bSuccesfull=true;
-        for (std::size_t ii = 0; ii<vecQuery.size(); ii++)
+        bSuccesfull = true;
+        for ( std::size_t ii = 0; ii<vecQuery.size(); ii++ )
         {
             str_vals = QString::fromStdString(vecQuery[ii]);
-            vec_totalQuery.append(str_vals);
+            vec_totalQuery.append( str_vals );
         }
     }
     return bSuccesfull;
@@ -209,23 +210,23 @@ void IScanLogDatabase::executeLoad()
     QVector<QString> vec_fields;
     vec_fields<<":Time"<<":Time_ms"<<":Dir"<<":Field"<<":Value";
 
-    if (vec_totalQuery.size()!=0)
+    if ( vec_totalQuery.size()!=0 )
     {
         bSuccesfull = openDb();
         if ( bSuccesfull )
         {
             QString str_genQuery = "INSERT INTO TableTest ( Time , Time_ms , Dir , Field ,Value )VALUES( :Time, :Time_ms , :Dir , :Field , :Value )";
 
-            query.exec("begin exclusive transaction;");
-            query.prepare(str_genQuery);
+            query.exec( "begin exclusive transaction;" );
+            query.prepare( str_genQuery );
 
-            for ( int ii = 0; ii <  vec_totalQuery.length()-5; ii+=5)
+            for ( int ii = 0; ii <  vec_totalQuery.length()-5; ii+=5 )
             {
-                query.bindValue(vec_fields[0], vec_totalQuery[ii+0]);
-                query.bindValue(vec_fields[1], vec_totalQuery[ii+1].toInt());
-                query.bindValue(vec_fields[2], vec_totalQuery[ii+2]);
-                query.bindValue(vec_fields[3], vec_totalQuery[ii+3]);
-                query.bindValue(vec_fields[4], vec_totalQuery[ii+4].toInt());
+                query.bindValue( vec_fields[0], vec_totalQuery[ii+0] );
+                query.bindValue( vec_fields[1], vec_totalQuery[ii+1].toInt() );
+                query.bindValue( vec_fields[2], vec_totalQuery[ii+2] );
+                query.bindValue( vec_fields[3], vec_totalQuery[ii+3] );
+                query.bindValue( vec_fields[4], vec_totalQuery[ii+4].toInt() );
                 query.exec();
             }
 
@@ -246,7 +247,7 @@ QVector<QVariant> IScanLogDatabase::getFiltered(std::string strColumnName, std::
     bSuccesfull = db.open();
     if ( bSuccesfull )
     {
-        char u8array[512]={0,};
+        char u8array[512] = {0,};
         snprintf(u8array, sizeof (u8array),
                  "SELECT %s FROM %s WHERE Dir LIKE '%s' AND Field LIKE '%s' ",
                  strColumnName.data(),
@@ -255,12 +256,12 @@ QVector<QVariant> IScanLogDatabase::getFiltered(std::string strColumnName, std::
                  strField.data());
 
         std::string str_command;
-        str_command.assign(u8array);
+        str_command.assign( u8array );
 
-        QSqlQuery query(QString::fromStdString(str_command));
-        while (query.next())
+        QSqlQuery query( QString::fromStdString( str_command ) );
+        while ( query.next() )
         {
-            vec_values.append(query.value(0));
+            vec_values.append( query.value(0) );
         }
         // db.close();
     }
