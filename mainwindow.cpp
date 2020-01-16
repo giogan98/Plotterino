@@ -85,26 +85,33 @@ void MainWindow::on_pbn_plot_clicked()
     QString str_graphType = ui->cb_graphType->currentText();
     QString str_field = ui->lined_field->text();
     cplot = ui->wdg_graph1;
-    if (str_widget == "Widget 2"){
+    if (str_widget == "Widget 2")
+    {
         cplot = ui->wdg_graph2;
     }
 
-    if (str_graphType == "Scatter"){
+    if (str_graphType == "Scatter")
+    {
         std::string str_field = ui->lined_field->text().toStdString();
         QVector<QVariant> vec_tempMs = iScanLogDatabase.getFiltered("Time_ms","TableTest","%",str_field);
         QVector<QVariant> vec_tempValue = iScanLogDatabase.getFiltered("Value","TableTest","%",str_field);
 
         QVector<double> vec_doubMs,vec_doubVals;
         QVector<double> vec_doubValsOk, vec_doubMsOk,vec_doubValsEr, vec_doubMsEr;
-        for (int ii = 0; ii < vec_tempMs.length(); ii++){
+        for (int ii = 0; ii < vec_tempMs.length(); ii++)
+        {
             vec_doubMs.append(vec_tempMs[ii].toDouble());
             vec_doubVals.append(vec_tempValue[ii].toDouble());
         }
-        for (int ii = 0; ii < vec_doubMs.length(); ii++){
-            if (static_cast<int>(vec_doubVals[ii])%100==0){
+        for (int ii = 0; ii < vec_doubMs.length(); ii++)
+        {
+            if (static_cast<int>(vec_doubVals[ii])%100==0)
+            {
                 vec_doubMsEr.append(vec_doubMs[ii]);
                 vec_doubValsEr.append(vec_doubVals[ii]);
-            }else{
+            }
+            else
+            {
                 vec_doubMsOk.append(vec_doubMs[ii]);
                 vec_doubValsOk.append(vec_doubVals[ii]);
             }
@@ -113,35 +120,43 @@ void MainWindow::on_pbn_plot_clicked()
         cbars.scatterGraph(vec_doubMsEr,vec_doubValsEr,QPen(Qt::red), cbars.EN_LSNONE);
         cbars.scatterGraph(vec_doubMsOk,vec_doubValsOk,QPen(Qt::blue), cbars.EN_LSNONE);
     }
-    else if (str_graphType == "Bars_Stacked"){
+    else if (str_graphType == "Bars_Stacked")
+    {
         std::string str_field = ui->lined_field->text().toStdString();
         QVector<QVariant> vec_tempMs = iScanLogDatabase.getFiltered("Time_ms","TableTest","%",str_field);
         QVector<QVariant> vec_tempValue = iScanLogDatabase.getFiltered("Value","TableTest","%",str_field);
 
         QVector<double> vec_doubMs,vec_doubVals;
         QVector<double> vec_doubMsEr, vec_doubMsOk;
-        for (int ii = 0; ii < vec_tempMs.length(); ii++){
+        for (int ii = 0; ii < vec_tempMs.length(); ii++)
+        {
             vec_doubMs.append(vec_tempMs[ii].toDouble());
             vec_doubVals.append(vec_tempValue[ii].toDouble());
         }
-        for (int ii = 0; ii < vec_doubMs.length(); ii++){
-            if (static_cast<int>(vec_doubVals[ii])%100==0){
+        for (int ii = 0; ii < vec_doubMs.length(); ii++)
+        {
+            if (static_cast<int>(vec_doubVals[ii])%100==0)
+            {
                 vec_doubMsEr.append(vec_doubMs[ii]);
                 //vec_doubValsEr.append(vec_doubVals[ii]);
-            }else{
+            }
+            else
+            {
                 vec_doubMsOk.append(vec_doubMs[ii]);
             }
         }
         cbars.giveMeUi(cplot);
         cbars.barsGraph(QCustomBars::BARS_PLUSTOT,24,vec_doubMsOk,vec_doubMsEr);
     }
-    else if ( str_graphType == "Lines"){
+    else if ( str_graphType == "Lines")
+    {
         std::string str_field = ui->lined_field->text().toStdString();
         QVector<QVariant> vec_tempMs = iScanLogDatabase.getFiltered("Time_ms","TableTest","%",str_field);
         QVector<QVariant> vec_tempValue = iScanLogDatabase.getFiltered("Value","TableTest","%",str_field);
 
         QVector<double> vec_doubMs,vec_doubVals;
-        for (int ii = 0; ii < vec_tempMs.length(); ii++){
+        for (int ii = 0; ii < vec_tempMs.length(); ii++)
+        {
             vec_doubMs.append(vec_tempMs[ii].toDouble());
             vec_doubVals.append(vec_tempValue[ii].toDouble());
         }
@@ -161,10 +176,12 @@ void MainWindow::on_pbn_createDb_clicked()
     QString str_fileName = "C:/Users/giorg/Documents/Doc_tirocinio/TableLog_2019_10_11.txt";
     //    QString str_fileName = QFileDialog::getOpenFileName(this, "Open log file");
     QFile file(str_fileName);
-    if (!file.open(QFile::ReadOnly | QFile::Text)){
+    if (!file.open(QFile::ReadOnly | QFile::Text))
+    {
         qDebug()<<"Log file is not opened";
     }
-    else{
+    else
+    {
         QElapsedTimer t;
         qint64 lProcessed=0;
         qint64 lFileSize = file.size();
@@ -176,7 +193,8 @@ void MainWindow::on_pbn_createDb_clicked()
             std::string strLineLog = inStream.readLine().toUtf8().constData();
             iProcessLog.processLogLine(strLineLog);
             lProcessed += strLineLog.length();
-            if ( lProcessed*100>(ui->progressBar->value()+9)*lFileSize){
+            if ( lProcessed*100>(ui->progressBar->value()+9)*lFileSize)
+            {
                 ui->progressBar->setValue(static_cast<int>(lProcessed*100)/lFileSize);
             }
         }

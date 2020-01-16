@@ -1,8 +1,9 @@
 #ifndef QCUSTOMBARS_H
 #define QCUSTOMBARS_H
-#include "Graphs/qcustomplot.h"
-#include <QWidget>
 
+#include "Graphs/qcustomplot.h"
+
+#include <QWidget>
 
 class QCustomBars
 {
