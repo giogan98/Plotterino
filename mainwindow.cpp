@@ -75,8 +75,7 @@ void MainWindow::on_pbn_graphs_clicked()
     for ( int ii = 0; ii < qv_varSugg.length(); ii++){
         strl_suggestions.append(qv_varSugg[ii].toString());
     }
-    getSuggestions.setStrList(strl_suggestions);
-    getSuggestions.getCompleted(ui->lined_field);
+    getSuggestions.getCompleted(ui->lined_field, strl_suggestions);
 }
 //---------------------------------------------------------------------------------
 void MainWindow::on_pbn_plot_clicked()

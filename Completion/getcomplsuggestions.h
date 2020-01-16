@@ -7,12 +7,15 @@
 class GetComplSuggestions
 {
 public:
-    GetComplSuggestions();
-    void setStrList(QStringList list);
-    void getCompleted(QLineEdit *lineEd);
 
 private:
-    QStringList strList;
+
+public:
+    GetComplSuggestions();
+    void getCompleted(QLineEdit *lineEd, QStringList list);
+
+private:
+
 };
 extern GetComplSuggestions complSuggestions;
 #endif // GETCOMPLSUGGESTIONS_H
