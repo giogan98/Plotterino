@@ -1,14 +1,17 @@
 #include "IScanLogDatabase.h"
 #include "Processing/IProcessMC.h"
 #include "Processing/IProcessGen.h"
-#include <QVariant>
-#include <QDebug>
-#include <QtSql/QSqlQuery>
 #include "Driver/ILog.h"
+
+#include <QDebug>
+#include <QVariant>
+#include <QFileInfo>
+#include <QtSql/QSqlQuery>
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlError>
-#include <QFileInfo>
+
 IScanLogDatabase iScanLogDatabase;
+//-----------------------------------------------------------------------------
 IScanLogDatabase::IScanLogDatabase()
 {
 
@@ -23,15 +26,15 @@ IScanLogDatabase::IScanLogDatabase()
 bool IScanLogDatabase::createOpenDatabase(std::string strPath )
 {
     bool bSuccesfull = false;
-    if ( strPath != ""){
+    if ( strPath != "")
+    {
         strDatabasePath.clear();
         strDatabasePath.append(QString::fromStdString(strPath));
     }
-    //create database
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(QString::fromStdString(strPath));
     bSuccesfull = db.open();
-    iProcessMC.initTable(); //basta una, tabella è la stessas
+    iProcessMC.initTable();
     return bSuccesfull;
 }
 //-----------------------------------------------------------------------------
@@ -78,11 +81,14 @@ bool IScanLogDatabase::createTable(ITableData structTable)
             strqryTbl.append( ")" );
             bool bSuccesfull2 = query.exec(strqryTbl);
             // db.close();
-            if( !bSuccesfull2 ){
+            if( !bSuccesfull2 )
+            {
                 qDebug()<<"IScanLogDatabase::createTable Impossible to set table: already existing?";
                 qDebug()<<query.lastError();
             }
-        } else {
+        }
+        else
+        {
             qDebug()<<"IScanLogDatabase::createTable Already Existing DB";
         }
     }
@@ -112,17 +118,18 @@ bool IScanLogDatabase::addRecord(IScanLogRecord * penStr)
             QString strTxtQuery = QString("INSERT INTO TABLELOG ("
                                           "date, time, tag, payload,comments)"
                                           "VALUES ('%1','%2','%3','%4','%5');")
-                    .arg(penStr->strDate		)
-                    .arg(penStr->strTime		)
-                    .arg(penStr->strTag		)
-                    .arg(penStr->strPayload	)
+                    .arg(penStr->strDate)
+                    .arg(penStr->strTime)
+                    .arg(penStr->strTag)
+                    .arg(penStr->strPayload)
                     .arg(penStr->strCommVersus);
             QSqlQuery query;
             query.clear();
             bSuccesfull = query.exec(strTxtQuery);
             iLog.append(strTxtQuery);
             // db.close();
-            if( !bSuccesfull ){
+            if( !bSuccesfull )
+            {
                 qDebug()<<"IScanLogDatabase::addRecord Failed Query";
             }
 
@@ -149,7 +156,7 @@ bool IScanLogDatabase::write(std::string strQuery)
     bool bSuccesfull = false;
     db = QSqlDatabase::database();
 
-    if (strQuery != "")
+    if ( strQuery != "" )
     {
         bSuccesfull = openDb();
         if ( bSuccesfull )
@@ -175,17 +182,17 @@ bool IScanLogDatabase::write(std::string strQuery)
     // db.close();
     return bSuccesfull;
 }
-
 //-----------------------------------------------------------------------------
-
 bool IScanLogDatabase::vecStrAppend(std::vector<std::string> vecQuery)
 {
     bool bSuccesfull = false;
     QString str_vals="";
 
-    if (vecQuery.size()>0){
+    if (vecQuery.size()>0)
+    {
         bSuccesfull=true;
-        for (std::size_t ii = 0; ii<vecQuery.size(); ii++){
+        for (std::size_t ii = 0; ii<vecQuery.size(); ii++)
+        {
             str_vals = QString::fromStdString(vecQuery[ii]);
             vec_totalQuery.append(str_vals);
         }
@@ -212,8 +219,8 @@ void IScanLogDatabase::executeLoad()
             query.exec("begin exclusive transaction;");
             query.prepare(str_genQuery);
 
-            for ( int ii = 0; ii <  vec_totalQuery.length()-5; ii+=5){
-
+            for ( int ii = 0; ii <  vec_totalQuery.length()-5; ii+=5)
+            {
                 query.bindValue(vec_fields[0], vec_totalQuery[ii+0]);
                 query.bindValue(vec_fields[1], vec_totalQuery[ii+1].toInt());
                 query.bindValue(vec_fields[2], vec_totalQuery[ii+2]);
@@ -231,7 +238,6 @@ void IScanLogDatabase::executeLoad()
     }
 }
 //-----------------------------------------------------------------------------
-
 QVector<QVariant> IScanLogDatabase::getFiltered(std::string strColumnName, std::string strTable, std::string strDirection, std::string strField)
 {
     QVector<QVariant> vec_values;
@@ -252,12 +258,14 @@ QVector<QVariant> IScanLogDatabase::getFiltered(std::string strColumnName, std::
         str_command.assign(u8array);
 
         QSqlQuery query(QString::fromStdString(str_command));
-        while (query.next()) {
+        while (query.next())
+        {
             vec_values.append(query.value(0));
         }
         // db.close();
     }
-    else{
+    else
+    {
         qDebug()<<db.lastError();
     }
     return vec_values; //you can convert qvariant into double, string etc if necessary

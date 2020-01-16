@@ -14,6 +14,10 @@ public:
     QString strCommVersus; /// communication versus - MC->Dll
     QString strTag; /// Type to be displayed
     QString strPayload; /// text with useful content
+
+private:
+
+public:
     IScanLogRecord(){clear();}
     void clear(void){
         strDate		 .clear();
@@ -22,17 +26,19 @@ public:
         strTag		 .clear();
         strPayload	 .clear();
     }
+
+private:
+
 };
 class IScanLogDatabase
 {
+public:
 
-    // . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 private:
     QSqlDatabase db;
     QString strDatabasePath;
     QVector <QString> vec_totalQuery;
 
-    // . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 public:
     IScanLogDatabase();
     bool createOpenDatabase(std::string strPath ); // crea database
@@ -40,20 +46,16 @@ public:
     bool addRecord(IScanLogRecord *penStr); //add a single row
     bool write(std::string strQuery);
     bool vecStrAppend(std::vector<std::string> vecQuery);
-
-    //*******************************************************//
     void executeLoad();
     QVector<QVariant> getFiltered (std::string strColumnName,
                                    std::string strTable,
                                    std::string strDirection,
                                    std::string strField);
 
-    //*******************************************************//
-
 private:
     bool openDb(void);
     void closeDb(void);
-    // . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
 };
 extern IScanLogDatabase iScanLogDatabase;
 #endif // SCANLOGDATABASE_H
