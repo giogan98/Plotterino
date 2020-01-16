@@ -19,7 +19,7 @@
 #include <string.h>
 
 ILog iLog = ILog::instance();
-
+//------------------------------------------------------------------------------
 ILog::ILog()
 {
     file = new QFile;
@@ -32,7 +32,6 @@ void ILog::init(void)
     str2.append(".log");
     file->setFileName(str2);
     append("Session start! ");
-
 }
 //------------------------------------------------------------------------------
 /**

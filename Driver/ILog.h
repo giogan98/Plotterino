@@ -39,6 +39,7 @@ public:
     void appendErr(QString strTxt);
     void appendWarn(QString strTxt);
     void close(void);
+
 };
 extern ILog iLog;
 #endif // ILOG_H
