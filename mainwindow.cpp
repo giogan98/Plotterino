@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     str_stylefile="C:/Users/giorg/Documents/Qt_documenti/DBGraphsV1/Stylesheet/Aqua.qss";
     QFile file(str_stylefile);
 
-    if (!file.open(QFile::ReadOnly | QFile::Text)){
+    if (!file.open(QFile::ReadOnly | QFile::Text))
+    {
         qDebug()<<"QSS file is not opened";
         return;
     }
