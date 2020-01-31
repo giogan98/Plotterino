@@ -1,22 +1,20 @@
 #include "getcomplsuggestions.h"
 
-getComplSuggestions::getComplSuggestions()
+#include<QDebug>
+
+GetComplSuggestions::GetComplSuggestions()
 {
 
 }
-
-void getComplSuggestions::setStrList(QStringList list)
+//---------------------------------------------------------------------------------
+void GetComplSuggestions::getCompleted(QLineEdit *lineEd, QStringList list)
 {
-    for (int ii = 0; ii<list.length(); ii++){
-        strList.append(list[ii]);
+    if ( list.length() != 0 )
+    {
+        QCompleter *completer = new QCompleter(list);
+        completer->setCaseSensitivity(Qt::CaseInsensitive);
+        //completer->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+        lineEd->setCompleter(completer);
     }
 }
-
-void getComplSuggestions::getCompleted(QLineEdit *lineEd)
-{
-    QCompleter *completer = new QCompleter(strList);
-    completer->setCaseSensitivity(Qt::CaseInsensitive);
-    //completer->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
-    lineEd->setCompleter(completer);
-}
-
+//---------------------------------------------------------------------------------

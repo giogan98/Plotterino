@@ -1,21 +1,21 @@
 #ifndef GETCOMPLSUGGESTIONS_H
 #define GETCOMPLSUGGESTIONS_H
+
 #include <QCompleter>
 #include <QLineEdit>
 
-
-class getComplSuggestions
+class GetComplSuggestions
 {
-
 public:
-    getComplSuggestions();
-    void setStrList(QStringList list);
-    void getCompleted(QLineEdit *lineEd);
 
 private:
-    QStringList strList;
 
+public:
+    GetComplSuggestions();
+    void getCompleted(QLineEdit *lineEd, QStringList list);
+
+private:
 
 };
-
+extern GetComplSuggestions complSuggestions;
 #endif // GETCOMPLSUGGESTIONS_H

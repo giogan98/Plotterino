@@ -19,20 +19,19 @@
 #include <string.h>
 
 ILog iLog = ILog::instance();
-
+//------------------------------------------------------------------------------
 ILog::ILog()
 {
-	file = new QFile;
+    file = new QFile;
 }
-
+//------------------------------------------------------------------------------
 void ILog::init(void)
 {
-	QString str2("log/TsLog_");
-	str2.append(QDate::currentDate().toString("yyyy_MM_dd"));
-	str2.append(".log");
-	file->setFileName(str2);
-	append("Session start! ");
-
+    QString str2("log/TsLog_");
+    str2.append(QDate::currentDate().toString("yyyy_MM_dd"));
+    str2.append(".log");
+    file->setFileName(str2);
+    append("Session start! ");
 }
 //------------------------------------------------------------------------------
 /**
@@ -41,7 +40,7 @@ void ILog::init(void)
  */
 void ILog::appendErr(QString strTxt)
 {
-	append("[!]:"+strTxt);
+    append("[!]:"+strTxt);
 }
 //------------------------------------------------------------------------------
 /**
@@ -50,7 +49,7 @@ void ILog::appendErr(QString strTxt)
  */
 void ILog::appendWarn(QString strTxt)
 {
-	append("[W]:"+strTxt);
+    append("[W]:"+strTxt);
 }
 //------------------------------------------------------------------------------
 /**
@@ -59,51 +58,49 @@ void ILog::appendWarn(QString strTxt)
  */
 void ILog::append(QString strTxt)
 {
-	QString strNewTime = (QTime::currentTime().toString("hh:mm:ss.zzz"));
-	//	strOldTime.clear();
-	//	strOldTime.append(QTime::currentTime().toString("hhmmss"));
-	//	bool bFlag0, bFlag1;
-	//	long lNumNew = strNewTime.toLong(&bFlag0,10);
-	//	long lNumOld = strOldTime.toLong(&bFlag1,10);
-	//	if(lNumOld > lNumNew){
-	//		close();
-	//		init();
-	//	}
-	strNewTime.append("; ");
-	strNewTime.append(strTxt);
-	strNewTime.append("\r\n");
-	if (!file->isOpen())
-	{
-		open();
-	}
-	if (file->isOpen())
-	{
-		file->write(strNewTime.toUtf8());
-		close();
-	}
+    QString strNewTime = (QTime::currentTime().toString("hh:mm:ss.zzz"));
+    //	strOldTime.clear();
+    //	strOldTime.append(QTime::currentTime().toString("hhmmss"));
+    //	bool bFlag0, bFlag1;
+    //	long lNumNew = strNewTime.toLong(&bFlag0,10);
+    //	long lNumOld = strOldTime.toLong(&bFlag1,10);
+    //	if(lNumOld > lNumNew){
+    //		close();
+    //		init();
+    //	}
+    strNewTime.append("; ");
+    strNewTime.append(strTxt);
+    strNewTime.append("\r\n");
+    if (!file->isOpen())
+    {
+        open();
+    }
+    if (file->isOpen())
+    {
+        file->write(strNewTime.toUtf8());
+        close();
+    }
 }
-
+//------------------------------------------------------------------------------
 void ILog::append(char * u8aStr, unsigned long ulSz)
 {
-	char u8aMsg256[256] = {0,};
-	if (ulSz >= sizeof(u8aMsg256))
-	{
-		ulSz = 0;
-	}
+    char u8aMsg256[256] = {0,};
+    if (ulSz >= sizeof(u8aMsg256))
+    {
+        ulSz = 0;
+    }
 
-	memcpy(u8aMsg256, u8aStr, ulSz);
-	QString str2(u8aStr);
-	append(str2);
+    memcpy(u8aMsg256, u8aStr, ulSz);
+    QString str2(u8aStr);
+    append(str2);
 }
-
-
+//------------------------------------------------------------------------------
 void ILog::open(void)
 {
-	file->open(QIODevice::Append);
+    file->open(QIODevice::Append);
 }
 void ILog::close(void)
 {
-	file->close();
+    file->close();
 }
-
-
+//------------------------------------------------------------------------------

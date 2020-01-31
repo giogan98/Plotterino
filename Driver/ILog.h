@@ -18,23 +18,28 @@
 
 class ILog
 {
-	private:
-	QFile *file;
-	QString strOldTime;
-	public:
-	static ILog& instance() {
-		static ILog iLog;
-		return iLog;
-	}
-	void init();
-	void append(QString strTxt);
-	void append(char *u8aStr, unsigned long ulSz);
-	void appendErr(QString strTxt);
-	void appendWarn(QString strTxt);
-	void close(void);
-	private:
-	ILog();
-	void open(void);
+private:
+    QFile *file;
+    QString strOldTime;
+
+public:
+
+private:
+    ILog();
+    void open(void);
+
+public:
+    static ILog& instance() {
+        static ILog iLog;
+        return iLog;
+    }
+    void init();
+    void append(QString strTxt);
+    void append(char *u8aStr, unsigned long ulSz);
+    void appendErr(QString strTxt);
+    void appendWarn(QString strTxt);
+    void close(void);
+
 };
 extern ILog iLog;
 #endif // ILOG_H

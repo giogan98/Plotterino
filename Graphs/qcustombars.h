@@ -1,14 +1,13 @@
 #ifndef QCUSTOMBARS_H
 #define QCUSTOMBARS_H
-#include "Graphs/qcustomplot.h"
-#include <QWidget>
 
+#include "Graphs/qcustomplot.h"
+
+#include <QWidget>
 
 class QCustomBars
 {
 public:
-    QCustomBars();
-
     typedef enum{
         BARS_XTIME   = 0,//on x axis time is displayed
         BARS_XOTHERS = 1,//on x axis other double types are displayed
@@ -20,23 +19,41 @@ public:
         EN_LSLINE =1,
     }enLineStyle;
 
-    void giveMeUi (QCustomPlot *cplot);
-    void barsXAxisIntervals(QVector<double> vec_elements, int iNumBin);
+private:
+    QCustomPlot *plot;
+    QVector<double> ranges;
+    QVector<double> columns;
+    QList<QCPBars*> listBars;
+    double max, min, range, dBin;
 
+public:
+    QCustomBars();
+    ~QCustomBars();
+    void setStyle(int iStyleNumber);
+    void giveMeUi (QCustomPlot *cplot);
     void barsXTime  (QVector<QTime> vec_time);
     void barsXTimeV2(QVector<double> vec_timeMs);
+    void barsXAxisIntervals(QVector<double> vec_elements, int iNumBin);
+    void yDispersion(QCustomPlot *cplot, QVector<QVector<double>> vec_vecDoub);
     void barsXTimeV3(enumChoiceBar choice, int iNumBin, QVector<double> vec_doubles);
     void barsXTimeV4(int iNumBin, QVector<double> vec_douberrors, QVector<double> vec_doubtots);
-    void barsGraph(enumChoiceBar choice,int iNumBin, QVector<double> vec_doubs, QVector<double> vec_douberrors={});
-
     void graphCustom00 (QCustomPlot *cplot, QVector<double> vec_timeMs, QVector<double> vec_doubVals);
-    void scatterGraph (QVector<double> vec_timeMs, QVector<double> vec_doubVals, QPen penColor, enLineStyle lineStyle = EN_LSNONE);
-
     void graphLines (QCustomPlot *cplot, QPen pencolor, QVector<double> vec_xAxis, QVector<double> vec_yAxis);
+    void barsGraph(enumChoiceBar choice,int iNumBin, QVector<double> vec_doubs, QVector<double> vec_douberrors={});
+    void scatterGraph (QVector<double> vec_timeMs, QVector<double> vec_doubVals, QPen penColor,
+                       enLineStyle lineStyle = EN_LSNONE);
 
-    void setStyle(int iStyleNumber);
+private:
+    void styleAxes ();
+    void setBackgroundGradient();
+    void inizializeColumns(int iNumBin);
+    QString changeToHour(QString str_toChange);
+    double findMax (QVector<double> vectorOfDouble);
+    double findMin (QVector<double> vectorOfDouble);
+    void makeConfrontRanges(enumChoiceBar choice, int iNumBin);
+    void addBarsElements(QVector<double> vec_doub, int iNumBin);
+    QVector<QString> getLabels(enumChoiceBar choice, int iNumBin);
 
-    void yDispersion(QCustomPlot *cplot, QVector<QVector<double>> vec_vecDoub);
     //@todo application styling with css file
     //@todo fix mouse on over display of coordinates, hour shown is behind one hour
     //@todo fix bug clear button not clearing axes
@@ -47,27 +64,6 @@ public:
     //@todo fix bug legend max height
     //@todo make combobox choice better:
     //m_ui->baudRateBox->addItem(QStringLiteral("9600"), QSerialPort::Baud9600);
-
-
-private:
-    QVector<double> ranges;
-    QVector<double> columns;
-    double max, min, range = 0, dBin;
-    QList<QCPBars*> listBars;
-    QCustomPlot *plot;
-
-    void inizializeColumns(int iNumBin);
-    void addBarsElements(QVector<double> vec_doub, int iNumBin);
-    void makeConfrontRanges(enumChoiceBar choice, int iNumBin);
-    double findMax (QVector<double> vectorOfDouble);
-    double findMin (QVector<double> vectorOfDouble);
-
-    void styleAxes ();
-    void setBackgroundGradient();
-    QVector<QString> getLabels(enumChoiceBar choice, int iNumBin);
-    QString changeToHour(QString str_toChange);
-
-
 };
-
+extern QCustomBars qCustomBars;
 #endif // QCUSTOMBARS_H

@@ -239,5 +239,5 @@ void IProcessMC::finalizeString( std::string *pStrOut,
     pStrOut->append(s8aDummy);
     pStrOut->append(" " );
     pStrOut->append("\n");
-
 }
+//------------------------------------------------------------------------------

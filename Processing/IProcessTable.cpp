@@ -19,7 +19,6 @@ IProcessTable::IProcessTable()
 //----------------------------------------------------------------------------
 void IProcessTable::initTable(void)
 {
-
     iScanLogDatabase.createTable( structTable );
 }
 //----------------------------------------------------------------------------
@@ -140,7 +139,6 @@ void IProcessTable::process0x403(std::string strPayload)
     iScanLogDatabase.vecStrAppend(vec_Query);
     vec_Query.clear();
 
-
     strField.assign("COLLIM_X");
     lData = static_cast<short>((laData[4]<<8)+laData[5]);
     strValue.assign(std::to_string(lData));
@@ -154,7 +152,6 @@ void IProcessTable::process0x403(std::string strPayload)
     iScanLogDatabase.vecStrAppend(vec_Query);
     vec_Query.clear();
 
-
     strField.assign("COLLIM_Y");
     lData = static_cast<short>((laData[6]<<8)+laData[7]);
     strValue.assign(std::to_string(lData));
@@ -164,8 +161,6 @@ void IProcessTable::process0x403(std::string strPayload)
     vec_Query = addRecord2(&structTable);
     iScanLogDatabase.vecStrAppend(vec_Query);
     vec_Query.clear();
-
-
 }
 //----------------------------------------------------------------------------
 void IProcessTable::appendRecordField(std::string str_nameField, unsigned long ulIndex)
@@ -237,11 +232,10 @@ void IProcessTable::process0x125(std::string strPayload)
     appendRecordField("Status_CPUBit"      , (lBitMask&(1<<14 ))>0);
     appendRecordField("DbgBit"             , (lBitMask&(1<<15 ))>0);
 }
-//--------------------------------------------------------
+//---------------------------------------------------------------------------------
 void IProcessTable::unpackBit8(std::string * pstrOut, uint8_t u8Val)
 {
     int ii, iBit;
-
     for (ii=0; ii<8; ii++)
     {
         char u8aNum[4];
@@ -251,11 +245,10 @@ void IProcessTable::unpackBit8(std::string * pstrOut, uint8_t u8Val)
         pstrOut->append(" ");
     }
 }
-//--------------------------------------------------------
+//---------------------------------------------------------------------------------
 void IProcessTable::unpackBit32(std::string * pstrOut, uint32_t uiVal)
 {
     int ii, iBit;
-
     for (ii=0; ii<19; ii++)
     {
         char u8aNum[4];
@@ -281,18 +274,14 @@ void IProcessTable::finalizeString( std::string *pStrOut,
                                     uint32_t lMcStatus)
 {
     char s8aDummy[16]={0,}; // more than max Int number: 9 digits + sign
-
     pStrOut->clear();
     //	itoa(ulTime, s8aDummy, 10);
     //	pStrOut->append(s8aDummy);
     //	pStrOut->append(" " );
     unpackBit32(pStrOut, lBitMask);
-    itoa( lMcStatus,s8aDummy, 10);
+    itoa( static_cast<int>(lMcStatus), s8aDummy, 10);
     pStrOut->append(s8aDummy);
     pStrOut->append(" " );
     pStrOut->append("\n");
-
 }
-
-
-
+//---------------------------------------------------------------------------------
